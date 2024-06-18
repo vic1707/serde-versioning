@@ -5,3 +5,14 @@ edition = "2021"
 
 [lib]
 proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+# corresponds to https://github.com/serde-rs/serde/pull/2765
+serde_derive_implementation = { git = "https://github.com/vic1707/serde.git", branch = "test-derive-impl-externalization", package = "serde_derive_implementation" }
+syn = { version = "2.0.70", features = ["full"] }
+
+[dev-dependencies]
+serde = { version = "1.0.204", features = ["derive"] }
+serde_json = "1.0.120"
