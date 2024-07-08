@@ -27,7 +27,7 @@ struct FooV1 {
 }
 
 #[derive(Deserialize)]
-#[versioning(previous_versions = [FooV0, "FooV1"])]
+#[versioning(pessimistic, previous_versions = [FooV0, "FooV1"])]
 struct FooV2 {
     name: String,
     age: u8,
@@ -35,7 +35,7 @@ struct FooV2 {
 }
 
 #[derive(Deserialize, Default)]
-#[versioning(previous_version = FooV2)]
+#[versioning(previous_version = FooV2, optimistic)]
 struct Foo {
     name: String,
     age: u8,

@@ -12,6 +12,7 @@ macro_rules! syn_err {
 
 pub struct Attributes {
     pub versioning: PreviousVersions,
+    pub optimistic: bool,
 }
 
 pub struct PreviousVersions(Vec<syn::Type>);
@@ -21,6 +22,7 @@ impl TryFrom<&syn::Attribute> for Attributes {
 
     fn try_from(attribute: &syn::Attribute) -> Result<Self, Self::Error> {
         let mut opt_versioning = None;
+        let mut optimistic = false;
         let meta_list = attribute.meta.require_list()?;
 
         meta_list.parse_nested_meta(|meta| {
@@ -39,6 +41,10 @@ impl TryFrom<&syn::Attribute> for Attributes {
                 let expr: syn::Expr = meta.value()?.parse()?;
                 let type_name = require_syn_type(expr)?;
                 opt_versioning.replace(PreviousVersions(vec![type_name]));
+            } else if meta.path.is_ident("optimistic") {
+                optimistic = true;
+            } else if meta.path.is_ident("pessimistic") {
+                optimistic = false;
             } else {
                 syn_err!(format!(
                     "Unknown attribute: '{:?}'",
@@ -53,7 +59,10 @@ impl TryFrom<&syn::Attribute> for Attributes {
             return Err(CompileError::from("No previous versions found"));
         };
 
-        Ok(Self { versioning })
+        Ok(Self {
+            versioning,
+            optimistic,
+        })
     }
 }
 
