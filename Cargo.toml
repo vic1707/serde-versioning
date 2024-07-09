@@ -1,7 +1,18 @@
 [package]
 name = "serde-versioning"
-version = "0.0.0"
+version = "0.0.1"
 edition = "2021"
+authors = ["Victor LEFEBVRE <contact@vic1707.xyz>"]
+description = "Add versioning support to `serde`'s `Deserialize` derive macro."
+# documentation = "https://docs.rs/serde-versioning"
+homepage = "https://github.com/vic1707/serde-versioning"
+license = "WTFPL"
+readme = "README.md"
+repository = "https://github.com/vic1707/serde-versioning"
+include = ["src/**/*", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE"]
+categories = ["encoding", "no-std", "no-std::no-alloc"]
+keywords = ["serde", "versioning", "deserialization", "serialization", "no_std"]
+rust-version = "1.65.0"
 
 [lib]
 proc-macro = true
