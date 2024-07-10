@@ -40,7 +40,7 @@ with
 use serde_versioning::Deserialize;
 ```
 
-And you'll be able to benefit from the `versioning` attribute without affecting while the original `Deserialize` capabilities stays as is.
+And you'll be able to benefit from the `versioning` attribute while the original `Deserialize` capabilities stays as is.
 
 ## Example
 
