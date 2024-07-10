@@ -63,6 +63,61 @@ Internally, `serde-versioning` manually invokes the original derive implementati
 The crate modifies the output to add versioning support, incorporating a few if-let-ok statements to handle the versioning logic.
 The implementation is heavily inspired by the untagged enum approach commonly used for versioning, but `serde-versioning` attempts to make this process more transparent and straightforward.
 
+Basically once derived it looks like this:
+
+#### Optimistic
+
+```rust
+fn deserialize<__D>(__deserializer: __D) -> _serde::__private::Result<Self, __D::Error>
+where
+    __D: _serde::Deserializer<'de>,
+{
+    // imports and logic stolen from untagged enum derived implementation
+    use _serde::__private::de::{Content, ContentRefDeserializer};
+    let __content = Content::deserialize(__deserializer)?;
+    let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
+
+    if let Ok(Ok(__ok)) = { /* Original output from serde */ } {
+        return Ok(__ok);
+    }
+
+    // as many of these as previous_versions you gave
+    if let Ok(Ok(__ok)) = #version_ty ::deserialize(__deserializer).map(Self::try_from)
+    {
+        return Ok(__ok);
+    }
+
+    return Err(
+        _serde::de::Error::custom("data did not match any version of (enum/struct) #ty"),
+    );
+}
+```
+
+#### Pessimistic
+
+```rust
+fn deserialize<__D>(__deserializer: __D) -> _serde::__private::Result<Self, __D::Error>
+where
+    __D: _serde::Deserializer<'de>,
+{
+    // imports and logic stolen from untagged enum derived implementation
+    use _serde::__private::de::{Content, ContentRefDeserializer};
+    let __content = Content::deserialize(__deserializer)?;
+    let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
+
+    // as many of these as previous_versions you gave
+    if let Ok(Ok(__ok)) = #version_ty ::deserialize(__deserializer).map(Self::try_from)
+    {
+        return Ok(__ok);
+    }
+
+    /* Original output from serde */
+}
+```
+
+Everything else is left as derived by serde.
+If you don't use the new `versioning` attribute then I simply return what `serde` derives, nothing less, nothing more.
+
 ## Contributing
 
 Feel free to open issues or submit pull requests. Contributions are welcome!
