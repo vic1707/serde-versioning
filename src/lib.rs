@@ -44,12 +44,9 @@ pub fn derive_deserialize_versioned(
         );
         tri!(deserialize_impl.replace_body(|de_stmts|
             quote! {{
-                use _serde::__private::{
-                    Result as SerdeResult,
-                    de::{Content, ContentRefDeserializer}
-                };
-                let __content = <Content as _serde::Deserialize>::deserialize(__deserializer)?;
-                let __deserializer = ContentRefDeserializer::<__D::Error,>::new(&__content);
+                use _serde::__private::de::{Content, ContentRefDeserializer};
+                let __content = Content::deserialize(__deserializer)?;
+                let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
 
                 if let Ok(__ok) = { #(#de_stmts)* } {
                     return Ok(__ok)
@@ -65,12 +62,9 @@ pub fn derive_deserialize_versioned(
     } else {
         tri!(deserialize_impl.replace_body(|de_stmts|
             quote! {{
-                use _serde::__private::{
-                    Result as SerdeResult,
-                    de::{Content, ContentRefDeserializer}
-                };
-                let __content = <Content as _serde::Deserialize>::deserialize(__deserializer)?;
-                let __deserializer = ContentRefDeserializer::<__D::Error,>::new(&__content);
+                use _serde::__private::de::{Content, ContentRefDeserializer};
+                let __content = Content::deserialize(__deserializer)?;
+                let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
 
                 #versioning
 
