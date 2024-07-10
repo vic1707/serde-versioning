@@ -2,6 +2,67 @@
 
 `serde-versioning` is a basic Rust crate that implements a naive solution for struct and enum versioning by extending the capabilities of `serde_derive`. This crate maintains 100% compatibility with `serde` while introducing a new container attribute `versioning` that provides versioning support for deserialization.
 
+## What it does for you
+
+`serde-versioning` allows you to turn a versioned struct (or enum) code that might look like this:
+
+```rust
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct FooV0 { name: String }
+#[derive(Debug, Deserialize)]
+struct FooV1 { name: String, age: u8 }
+#[derive(Debug, Deserialize)]
+struct Foo { name: String, age: u8, country: String }
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum FooVersions {
+    V0(FooV0),
+    V1(FooV1),
+    Latest(Foo),
+}
+
+impl TryFrom<FooV0> for FooV1 { /* ... */ }
+impl TryFrom<FooV1> for Foo { /* ... */ }
+impl TryFrom<FooVersions> for Foo { /* ... */ }
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let foo_v0_str = r#"{ "name": "vic1707" }"#;
+    let foo: Foo = serde_json::from_str::<FooVersions>(foo_v0_str)?.try_into()?;
+    println!("{foo:#?}");
+    Ok(())
+}
+```
+
+Into
+
+```rust
+use serde_versioning::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct FooV0 { name: String }
+#[derive(Debug, Deserialize)]
+#[versioning(previous_version = FooV0)]
+struct FooV1 { name: String, age: u8 }
+#[derive(Debug, Deserialize)]
+#[versioning(previous_version = FooV1)]
+struct Foo { name: String, age: u8, country: String }
+
+impl TryFrom<FooV0> for FooV1 { /* ... */ }
+impl TryFrom<FooV1> for Foo { /* ... */ }
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let foo_v0_str = r#"{ "name": "vic1707" }"#;
+    let foo= serde_json::from_str::<Foo>(foo_v0_str)?;
+    println!("{foo:#?}");
+    Ok(())
+}
+````
+
+**Note**: internally `serde_versioning` **doesn't** generate an untagged enum.
+
 ## Features
 
 - **Optimistic/Pessimistic Deserialization**: Choose whether to attempt deserialization using previous versions first (pessimistic, which is the default) or the latest version first (optimistic).
