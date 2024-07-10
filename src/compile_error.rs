@@ -26,7 +26,7 @@ impl From<CompileError> for proc_macro::TokenStream {
 
 impl fmt::Display for CompileError {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(fmt, "TODO")
+        write!(fmt, "Compile error: {}", self.0)
     }
 }
 
