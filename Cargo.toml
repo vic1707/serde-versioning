@@ -25,5 +25,6 @@ serde_derive_implementation = { git = "https://github.com/vic1707/serde.git", br
 syn = { version = "2.0.70", features = ["full"] }
 
 [dev-dependencies]
-serde = { version = "1.0.204", features = ["derive"] }
+serde = "1.0.204"
+# serde_derive = "1.0.204" # used by `generate_diff.sh` script
 serde_json = "1.0.120"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check if sed is available
 if ! which sed > /dev/null; then
@@ -16,9 +16,9 @@ fi
 sed_() {
     # sed --version doesn't exist on macos
     if ! sed --version > /dev/null 2>&1; then
-        args=$*
+        args=( "$@" )
         set --
-        for arg in $args; do
+        for arg in "${args[@]}"; do
             if [ "$arg" = "-i" ]; then
                 set -- "$@" "$arg" ""
             else
@@ -29,13 +29,15 @@ sed_() {
     $(which sed) "$@"
 }
 
-sed_ -i 's/serde_versioning::Deserialize/serde::Deserialize/g' examples/usage.rs
+sed_ -i 's/^#[[:space:]]serde_derive/serde_derive/g' Cargo.toml
+sed_ -i 's/serde_versioning::Deserialize/serde_derive::Deserialize/g' examples/usage.rs
 sed_ -i 's/#\[versioning/\/\/#\[versioning/g' examples/usage.rs
 cargo expand --example usage > usage.expanded.initial.rs
-sed_ -i 's/serde::Deserialize/serde_versioning::Deserialize/g' examples/usage.rs
+sed_ -i 's/serde_derive::Deserialize/serde_versioning::Deserialize/g' examples/usage.rs
 sed_ -i 's/\/\/#\[versioning/#\[versioning/g' examples/usage.rs
 cargo expand --example usage > usage.expanded.modified.rs
 diff -u usage.expanded.initial.rs usage.expanded.modified.rs > usage.diff
+sed_ -i 's/^serde_derive[[:space:]]/# serde_derive /g' Cargo.toml
 
 # clean-up
 rm usage.expanded.initial.rs usage.expanded.modified.rs

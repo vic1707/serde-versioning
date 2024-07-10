@@ -15,10 +15,10 @@ Add the following to your Cargo.toml:
 ```toml
 [dependencies]
 serde-versioning = { git = "https://github.com/vic1707/serde-versioning.git" }
-serde = { version = "1.0", features = ["derive"] }
+serde = "1.0.204"
 ```
 
-Ensure you have `serde` with the `derive` feature enabled for compatibility.
+Ensure you have `serde` listed as a dependency to be able to import the `Deserialize` trait itself.
 
 ## Usage
 
