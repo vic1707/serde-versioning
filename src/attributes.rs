@@ -70,7 +70,7 @@ impl quote::ToTokens for PreviousVersions {
     fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
         let if_lets = self.0.iter().map(|ty| {
             quote! {
-                if let Ok(Ok(__ok)) = #ty ::deserialize(__deserializer)
+                if let Ok(Ok(__ok)) = <#ty as _serde::Deserialize>::deserialize(__deserializer)
                     .map(Self::try_from)
                 {
                     return Ok(__ok);
