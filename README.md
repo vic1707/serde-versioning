@@ -83,7 +83,7 @@ Ensure you have `serde` listed as a dependency to be able to import the `Deseria
 
 ## Usage
 
-`serde-versioning` is designed to be a drop-in replacement for `serde`. Simply replace:
+`serde-versioning` is designed to be a drop-in replacement for `serde`'s `Deserialize` derive macro. Simply replace:
 
 ```rust
 use serde::Deserialize;
