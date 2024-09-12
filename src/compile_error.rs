@@ -1,6 +1,5 @@
 /* Built-in imports */
-use core::fmt;
-use std::error;
+use core::{error, fmt};
 
 #[derive(Debug)]
 #[repr(transparent)]

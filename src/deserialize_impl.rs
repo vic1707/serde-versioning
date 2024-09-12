@@ -1,6 +1,9 @@
 /* Crate imports */
 use crate::compile_error::CompileError;
 use quote::ToTokens;
+/* Built-in imports */
+extern crate alloc;
+use alloc::vec::Vec;
 /* Dependencies */
 use serde_derive_implementation::de::expand_derive_deserialize;
 use syn::{Expr, ImplItem, ImplItemFn, Item, ItemConst, Stmt};

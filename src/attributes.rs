@@ -1,5 +1,8 @@
 /* Crate imports */
 use crate::compile_error::CompileError;
+/* Built-in imports */
+extern crate alloc;
+use alloc::{format, vec, vec::Vec};
 /* Dependencies */
 use quote::quote;
 use syn::{Expr, Lit, Type};

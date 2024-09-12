@@ -1,3 +1,4 @@
+#![no_std]
 /* Modules */
 mod attributes;
 mod compile_error;
@@ -7,6 +8,9 @@ mod utils;
 use attributes::Attributes;
 use deserialize_impl::DeserializeImpl;
 use utils::tri;
+/* Built-in imports */
+extern crate alloc;
+use alloc::{format, string::ToString};
 /* Dependencies */
 use quote::quote;
 use syn::Data;
