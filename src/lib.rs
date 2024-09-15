@@ -3,10 +3,12 @@
 mod attributes;
 mod compile_error;
 mod deserialize_impl;
+mod from_default;
 mod utils;
 /* Crate imports */
 use attributes::Attributes;
 use deserialize_impl::DeserializeImpl;
+use from_default::DefaultImpls;
 use utils::tri;
 /* Built-in imports */
 extern crate alloc;
@@ -32,9 +34,11 @@ pub fn derive_deserialize_versioned(
     let Attributes {
         versioning,
         optimistic,
+        from_default,
     } = tri!(Attributes::try_from(versioning_attr));
     let ds_ident = derive_input.ident.clone();
-    let ds_kind_name = match derive_input.data {
+    let ds_data = derive_input.data.clone();
+    let ds_kind_name = match ds_data {
         Data::Enum(_) => "enum",
         Data::Struct(_) => "struct",
         Data::Union(_) => "union",
@@ -67,5 +71,16 @@ pub fn derive_deserialize_versioned(
         }}
     }));
 
-    proc_macro::TokenStream::from(deserialize_impl)
+    #[allow(clippy::if_then_some_else_none)]
+    let default_impl: Option<DefaultImpls> = if from_default {
+        Some(tri!(DefaultImpls::build(versioning.names(), &ds_ident, ds_data)))
+    } else {
+        None
+    };
+
+    let derived = quote! {
+        #deserialize_impl
+        #default_impl
+    };
+    proc_macro::TokenStream::from(derived)
 }

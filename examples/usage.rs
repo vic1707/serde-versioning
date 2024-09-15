@@ -35,7 +35,7 @@ struct FooV2 {
 }
 
 #[derive(Deserialize, Default)]
-#[versioning(previous_version = FooV2, optimistic)]
+#[versioning(previous_version = FooV2, optimistic, from_default)]
 struct Foo {
     name: String,
     age: u8,
@@ -87,8 +87,4 @@ impl From<FooV0> for FooV2 {
         }
     }
 }
-impl From<FooV2> for Foo {
-    fn from(_: FooV2) -> Self {
-        Self::default()
-    }
-}
+

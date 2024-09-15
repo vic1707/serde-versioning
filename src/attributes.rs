@@ -16,9 +16,16 @@ macro_rules! syn_err {
 pub struct Attributes {
     pub versioning: PreviousVersions,
     pub optimistic: bool,
+    pub from_default: bool,
 }
 
 pub struct PreviousVersions(Vec<syn::Type>);
+
+impl PreviousVersions {
+    pub fn names(&self) -> impl Iterator<Item = &syn::Type> {
+        self.0.iter()
+    }
+}
 
 impl TryFrom<&syn::Attribute> for Attributes {
     type Error = CompileError;
@@ -26,6 +33,7 @@ impl TryFrom<&syn::Attribute> for Attributes {
     fn try_from(attribute: &syn::Attribute) -> Result<Self, Self::Error> {
         let mut opt_versioning = None;
         let mut optimistic = false;
+        let mut from_default = false;
         let meta_list = attribute.meta.require_list()?;
 
         meta_list.parse_nested_meta(|meta| {
@@ -48,6 +56,8 @@ impl TryFrom<&syn::Attribute> for Attributes {
                 optimistic = true;
             } else if meta.path.is_ident("pessimistic") {
                 optimistic = false;
+            } else if meta.path.is_ident("from_default") {
+                from_default = true;
             } else {
                 syn_err!(format!(
                     "Unknown attribute: '{:?}'",
@@ -65,6 +75,7 @@ impl TryFrom<&syn::Attribute> for Attributes {
         Ok(Self {
             versioning,
             optimistic,
+            from_default,
         })
     }
 }
