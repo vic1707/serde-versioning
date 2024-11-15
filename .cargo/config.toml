@@ -10,6 +10,8 @@ rustflags = [
   "-Aclippy::implicit_return",                  # clippy::needless-return           - remove return keyword when not needed
   "-Aclippy::pub-with-shorthand",               # clippy::pub-without-shorthand     - pub(<scope>) instead of pub(in <scope>)
   ## Allowed ##
+  "-Aclippy::self_named_module_files",
+  "-Aclippy::mod_module_files",
   "-Aclippy::missing_trait_methods",            # convenience
   "-Aclippy::question_mark_used",               # convenience
   "-Aclippy::renamed_function_params",          # I do what I want damn
