@@ -1,26 +1,27 @@
 name: Fmt
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-    workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-    pre_ci:
-        uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
-    fmt_and_lint:
-        needs: pre_ci
-        runs-on: ubuntu-latest
-        steps:
-            -
-                uses: actions/checkout@v4
-            -
-                name: Install Rust
-                uses: IronCoreLabs/rust-toolchain@v1
-            -
-                name: Rust fmt
-                run: cargo fmt --all -- --check
-            -
-                name: Rust clippy
-                run: cargo clippy
+  pre_ci:
+    uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
+  fmt_and_lint:
+    needs: pre_ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      
+      - name: Install Rust
+        uses: IronCoreLabs/rust-toolchain@v1
+      
+      - name: Rust fmt
+        run: cargo fmt --all -- --check
+      
+      - name: Rust clippy
+        run: cargo clippy
