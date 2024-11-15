@@ -5,7 +5,7 @@ use quote::ToTokens;
 extern crate alloc;
 use alloc::vec::Vec;
 /* Dependencies */
-use serde_derive_implementation::de::expand_derive_deserialize;
+use crate::serde_derive_implementation::de::expand_derive_deserialize;
 use syn::{Expr, ImplItem, ImplItemFn, Item, ItemConst, Stmt};
 
 pub struct DeserializeImpl(ItemConst);

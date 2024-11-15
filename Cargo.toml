@@ -1,6 +1,6 @@
 [package]
 name = "serde-versioning"
-version = "0.0.1"
+version = "1.0.215" # same as serde version used here
 edition = "2021"
 authors = ["Victor LEFEBVRE <contact@vic1707.xyz>"]
 description = "Add versioning support to `serde`'s `Deserialize` derive macro."
@@ -20,8 +20,6 @@ proc-macro = true
 [dependencies]
 proc-macro2 = "1.0.89"
 quote = "1.0.37"
-# corresponds to https://github.com/serde-rs/serde/pull/2765
-serde_derive_implementation = { git = "https://github.com/vic1707/serde.git", branch = "test-derive-impl-externalization", package = "serde_derive_implementation" }
 syn = { version = "2.0.87", features = ["full"] }
 
 [dev-dependencies]

@@ -1,4 +1,4 @@
-#![no_std]
+// #![no_std]
 /* Modules */
 mod attributes;
 mod compile_error;
@@ -69,3 +69,10 @@ pub fn derive_deserialize_versioned(
 
     proc_macro::TokenStream::from(deserialize_impl)
 }
+
+/* SERDE DERIVE INTERNALS */
+#[rustfmt::skip]
+mod serde_derive_implementation;
+use serde_derive_implementation::{
+    bound, dummy, fragment, internals, pretend, this,
+};
