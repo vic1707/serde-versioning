@@ -1,6 +1,6 @@
 /* Crate imports */
 use crate::compile_error::CompileError;
-use quote::ToTokens;
+use quote::ToTokens as _;
 /* Built-in imports */
 extern crate alloc;
 use alloc::vec::Vec;

@@ -1,6 +1,6 @@
 [package]
 name = "serde-versioning"
-version = "1.0.215" # same as serde version used here
+version = "1.0.219" # same as serde version used here
 edition = "2021"
 authors = ["Victor LEFEBVRE <contact@vic1707.xyz>"]
 description = "Add versioning support to `serde`'s `Deserialize` derive macro."
@@ -18,11 +18,11 @@ rust-version = "1.65.0"
 proc-macro = true
 
 [dependencies]
-proc-macro2 = "1.0.89"
-quote = "1.0.37"
-syn = { version = "2.0.87", features = ["full"] }
+proc-macro2 = "1.0.95"
+quote = "1.0.40"
+syn = { version = "2.0.104", features = ["full"] }
 
 [dev-dependencies]
-serde = "1.0.215"
-# serde_derive = "1.0.215" # used by `generate_diff.sh` script
-serde_json = "1.0.132"
+serde = "1.0.219"
+# serde_derive = "1.0.219" # used by `generate_diff.sh` script
+serde_json = "1.0.140"

@@ -15,6 +15,7 @@ rustflags = [
   "-Aclippy::missing_trait_methods",            # convenience
   "-Aclippy::question_mark_used",               # convenience
   "-Aclippy::renamed_function_params",          # I do what I want damn
+  "-Aclippy::arbitrary_source_item_ordering",
   ## Maybe remove one day ##
   "-Aclippy::missing_docs_in_private_items",
 ]

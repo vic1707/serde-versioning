@@ -1,4 +1,4 @@
-#![allow(clippy::wildcard_imports, clippy::enum_glob_use)]
+#![allow(clippy::wildcard_imports, clippy::enum_glob_use, clippy::unused_trait_names)]
 #![expect(
     clippy::unreachable,
     clippy::too_many_lines,
@@ -55,8 +55,8 @@
     clippy::checked_conversions,
     clippy::missing_assert_message,
     clippy::enum_variant_names,
-    clippy::wildcard_in_or_patterns,
     clippy::match_like_matches_macro,
+    clippy::elidable_lifetime_names,
     reason = "clippy::all didn't work."
 )]
 
