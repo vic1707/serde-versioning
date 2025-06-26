@@ -120,7 +120,8 @@ Feel free to look at the [usage](./examples/usage.rs) example.
 
 ## Implementation Details
 
-Internally, `serde-versioning` manually invokes the original derive implementation from `serde`, which is imported via a personal fork (associated with a PR [#2765](https://github.com/serde-rs/serde/pull/2765) aimed at integrating this feature into the official `serde`).
+Internally, `serde-versioning` manually invokes the original derive implementation from `serde`, which is imported via a git-submodule (synced with `serde`'s tags) to get access to the `expand_derive_deserialize` function (a PR was proposed to make that function available to anyone [#2765](https://github.com/serde-rs/serde/pull/2765) but got refused, submodule will be used until then).
+
 The crate modifies the output to add versioning support, incorporating a few if-let-ok statements to handle the versioning logic.
 The implementation is heavily inspired by the untagged enum approach commonly used for versioning, but `serde-versioning` attempts to make this process more transparent and straightforward.
 
