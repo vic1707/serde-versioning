@@ -1,4 +1,4 @@
 [submodule "serde"]
 	path = serde
 	url = https://github.com/serde-rs/serde
-	branch = v1.0.219
+	branch = v1.0.228

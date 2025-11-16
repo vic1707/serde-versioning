@@ -73,6 +73,5 @@ pub fn derive_deserialize_versioned(
 /* SERDE DERIVE INTERNALS */
 #[rustfmt::skip]
 mod serde_derive_implementation;
-use serde_derive_implementation::{
-    bound, dummy, fragment, internals, pretend, this,
-};
+#[allow(clippy::wildcard_imports)]
+use serde_derive_implementation::*;

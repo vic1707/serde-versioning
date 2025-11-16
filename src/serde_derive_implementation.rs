@@ -60,14 +60,36 @@
     reason = "clippy::all didn't work."
 )]
 
+use proc_macro2::{Ident, Span};
+use quote::{ToTokens, TokenStreamExt as _};
+
 #[macro_use]
 pub mod bound;
 #[macro_use]
 pub mod fragment;
 
 pub mod de;
+pub mod deprecated;
 pub mod dummy;
 pub mod internals;
 pub mod pretend;
 pub mod ser;
 pub mod this;
+
+#[allow(non_camel_case_types)]
+pub struct private;
+
+impl private {
+    fn ident(&self) -> Ident {
+        Ident::new(
+            concat!("__private", env!("CARGO_PKG_VERSION_PATCH")),
+            Span::call_site(),
+        )
+    }
+}
+
+impl ToTokens for private {
+    fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
+        tokens.append(self.ident());
+    }
+}
