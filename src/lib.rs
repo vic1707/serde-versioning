@@ -59,8 +59,11 @@ pub fn derive_deserialize_versioned(
         };
 
         quote! {{
-            use _serde::__private::de::{Content, ContentRefDeserializer};
-            let __content = Content::deserialize(__deserializer)?;
+            use _serde::{
+                de::DeserializeSeed,
+                __private228::de::{ContentVisitor, ContentRefDeserializer},
+            };
+            let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
             let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
 
             #deserialization

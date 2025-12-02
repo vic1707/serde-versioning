@@ -82,7 +82,7 @@ pub struct private;
 impl private {
     fn ident(&self) -> Ident {
         Ident::new(
-            concat!("__private", env!("CARGO_PKG_VERSION_PATCH")),
+            "__private228",
             Span::call_site(),
         )
     }

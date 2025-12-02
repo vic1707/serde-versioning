@@ -17,7 +17,7 @@ impl DeserializeImpl {
         };
 
         let Some(&mut Stmt::Item(Item::Impl(ref mut deserialize_impl))) =
-            const_block.block.stmts.get_mut(1)
+            const_block.block.stmts.get_mut(2)
         else {
             return Err("Couldn't find Deserialize impl block".into());
         };
