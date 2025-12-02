@@ -75,8 +75,8 @@ Add the following to your Cargo.toml:
 
 ```toml
 [dependencies]
-serde-versioning = { git = "https://github.com/vic1707/serde-versioning.git" }
-serde = "1.0.204"
+serde-versioning = "1.0.228"
+serde = "1.0.228"
 ```
 
 Ensure you have `serde` listed as a dependency to be able to import the `Deserialize` trait itself.
@@ -135,8 +135,11 @@ where
     __D: _serde::Deserializer<'de>,
 {
     // imports and logic stolen from untagged enum derived implementation
-    use _serde::__private::de::{Content, ContentRefDeserializer};
-    let __content = Content::deserialize(__deserializer)?;
+    use _serde::{
+        de::DeserializeSeed,
+        __private228::de::{ContentVisitor, ContentRefDeserializer},
+    };
+    let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
     let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
 
     if let Ok(Ok(__ok)) = { /* Original output from serde */ } {
@@ -163,8 +166,11 @@ where
     __D: _serde::Deserializer<'de>,
 {
     // imports and logic stolen from untagged enum derived implementation
-    use _serde::__private::de::{Content, ContentRefDeserializer};
-    let __content = Content::deserialize(__deserializer)?;
+    use _serde::{
+        de::DeserializeSeed,
+        __private228::de::{ContentVisitor, ContentRefDeserializer},
+    };
+    let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
     let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
 
     // as many of these as previous_versions you gave
