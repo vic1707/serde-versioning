@@ -1,6 +1,6 @@
 [package]
 name = "serde-versioning"
-version = "1.0.228" # same as serde version used here
+version = "1.0.228-fix.1" # same as serde version used here
 edition = "2021"
 authors = ["Victor LEFEBVRE <contact@vic1707.xyz>"]
 description = "Add versioning support to `serde`'s `Deserialize` derive macro."
