@@ -6,6 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  ensure-example:
+    name: Ensure example builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          submodules: true
+
+      - name: Install Rust
+        uses: IronCoreLabs/rust-toolchain@v1
+
+      - run: cargo run --example usage
+
   ensure-doc:
     name: Ensure documentation builds
     runs-on: ubuntu-latest
@@ -24,7 +37,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: ensure-doc
+    needs: [ensure-doc, ensure-example]
     steps:
       - uses: actions/checkout@v4.2.2
         with:
