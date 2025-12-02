@@ -1,4 +1,4 @@
-#![allow(clippy::wildcard_imports, clippy::enum_glob_use, clippy::unused_trait_names)]
+#![allow(clippy::wildcard_imports, clippy::enum_glob_use, clippy::unused_trait_names, clippy::tests_outside_test_module)]
 #![expect(
     clippy::unreachable,
     clippy::too_many_lines,
@@ -49,7 +49,6 @@
     clippy::let_underscore_untyped,
     clippy::string_slice,
     clippy::string_add,
-    clippy::unwrap_in_result,
     clippy::manual_assert,
     clippy::unseparated_literal_suffix,
     clippy::checked_conversions,
@@ -57,6 +56,7 @@
     clippy::enum_variant_names,
     clippy::match_like_matches_macro,
     clippy::elidable_lifetime_names,
+    mismatched_lifetime_syntaxes,
     reason = "clippy::all didn't work."
 )]
 
