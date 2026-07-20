@@ -1,4 +1,11 @@
-#![allow(clippy::wildcard_imports, clippy::enum_glob_use, clippy::unused_trait_names, clippy::tests_outside_test_module)]
+#![allow(
+    clippy::wildcard_imports,
+    clippy::enum_glob_use,
+    clippy::unused_trait_names,
+    clippy::tests_outside_test_module,
+    clippy::missing_inline_in_public_items,
+    reason = "Don't lint upstream serde's codes"
+)]
 #![expect(
     clippy::unreachable,
     clippy::too_many_lines,
@@ -24,7 +31,6 @@
     unexpected_cfgs,
     clippy::std_instead_of_alloc,
     clippy::std_instead_of_core,
-    clippy::manual_let_else,
     clippy::use_self,
     clippy::missing_const_for_fn,
     clippy::unwrap_used,
@@ -57,6 +63,11 @@
     clippy::match_like_matches_macro,
     clippy::elidable_lifetime_names,
     mismatched_lifetime_syntaxes,
+    clippy::doc_paragraphs_missing_punctuation,
+    clippy::items_after_statements,
+    clippy::inline_trait_bounds,
+    clippy::multiple_inherent_impl,
+    clippy::unnecessary_map_or,
     reason = "clippy::all didn't work."
 )]
 
@@ -76,15 +87,12 @@ pub mod pretend;
 pub mod ser;
 pub mod this;
 
-#[allow(non_camel_case_types)]
+#[expect(non_camel_case_types, reason = "Private struct")]
 pub struct private;
 
 impl private {
     fn ident(&self) -> Ident {
-        Ident::new(
-            "__private228",
-            Span::call_site(),
-        )
+        Ident::new("__private229", Span::call_site())
     }
 }
 

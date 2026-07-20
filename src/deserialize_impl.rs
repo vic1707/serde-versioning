@@ -31,10 +31,10 @@ impl DeserializeImpl {
         Ok(deserialize_fn_impl)
     }
 
-    pub fn replace_body<F: FnOnce(&Vec<Stmt>) -> proc_macro2::TokenStream>(
-        &mut self,
-        func: F,
-    ) -> Result<(), CompileError> {
+    pub fn replace_body<F>(&mut self, func: F) -> Result<(), CompileError>
+    where
+        F: FnOnce(&Vec<Stmt>) -> proc_macro2::TokenStream,
+    {
         let de_fn_impl = self.get_fn_impl()?;
         // stmts to avoid unnecessary braces
         let de_fn_block_stmts = &de_fn_impl.block.stmts;
@@ -57,6 +57,7 @@ impl TryFrom<syn::DeriveInput> for DeserializeImpl {
 }
 
 impl From<DeserializeImpl> for proc_macro::TokenStream {
+    #[inline]
     fn from(de_impl: DeserializeImpl) -> Self {
         de_impl.0.into_token_stream().into()
     }

@@ -1,4 +1,4 @@
-edition = "2021"
+edition = "2024"
 force_explicit_abi = true
 hard_tabs = false
 match_block_trailing_comma = true

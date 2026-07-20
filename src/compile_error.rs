@@ -18,6 +18,7 @@ impl From<&str> for CompileError {
 }
 
 impl From<CompileError> for proc_macro::TokenStream {
+    #[inline]
     fn from(val: CompileError) -> Self {
         val.0
     }

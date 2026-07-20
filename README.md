@@ -75,8 +75,8 @@ Add the following to your Cargo.toml:
 
 ```toml
 [dependencies]
-serde-versioning = "1.0.228"
-serde = "1.0.228"
+serde-versioning = "1.0.229"
+serde = "1.0.229"
 ```
 
 Ensure you have `serde` listed as a dependency to be able to import the `Deserialize` trait itself.
@@ -137,7 +137,7 @@ where
     // imports and logic stolen from untagged enum derived implementation
     use _serde::{
         de::DeserializeSeed,
-        __private228::de::{ContentVisitor, ContentRefDeserializer},
+        __private229::de::{ContentVisitor, ContentRefDeserializer},
     };
     let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
     let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);
@@ -168,7 +168,7 @@ where
     // imports and logic stolen from untagged enum derived implementation
     use _serde::{
         de::DeserializeSeed,
-        __private228::de::{ContentVisitor, ContentRefDeserializer},
+        __private229::de::{ContentVisitor, ContentRefDeserializer},
     };
     let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
     let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);

@@ -87,7 +87,11 @@ impl quote::ToTokens for PreviousVersions {
 
 fn require_syn_type(expr: syn::Expr) -> Result<syn::Type, syn::Error> {
     if let Expr::Path(syn::ExprPath { path, .. }) = expr {
-        Ok(Type::Path(syn::TypePath { path, qself: None }))
+        Ok(Type::Path(syn::TypePath {
+            attrs: Vec::new(),
+            path,
+            qself: None,
+        }))
     } else if let Expr::Lit(syn::ExprLit {
         lit: Lit::Str(type_name),
         ..

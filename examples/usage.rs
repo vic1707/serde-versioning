@@ -2,7 +2,7 @@
 // ensure the new derive macro doesn't cause trouble with no_std support
 #![no_std]
 /* Clippy config */
-#![allow(dead_code, clippy::unwrap_used)]
+#![allow(dead_code, clippy::unwrap_used, reason = "Example code")]
 /* Built-in imports */
 extern crate alloc;
 use alloc::string::String;
