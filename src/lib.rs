@@ -16,6 +16,7 @@ use quote::quote;
 use syn::Data;
 
 #[proc_macro_derive(Deserialize, attributes(serde, versioning))]
+#[inline]
 pub fn derive_deserialize_versioned(
     input: proc_macro::TokenStream,
 ) -> proc_macro::TokenStream {
@@ -61,7 +62,7 @@ pub fn derive_deserialize_versioned(
         quote! {{
             use _serde::{
                 de::DeserializeSeed,
-                __private228::de::{ContentVisitor, ContentRefDeserializer},
+                __private229::de::{ContentVisitor, ContentRefDeserializer},
             };
             let __content = DeserializeSeed::deserialize(ContentVisitor::new(), __deserializer)?;
             let __deserializer = ContentRefDeserializer::<__D::Error>::new(&__content);

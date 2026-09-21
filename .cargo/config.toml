@@ -1,5 +1,6 @@
 [build]
 rustflags = [
+  "--check-cfg=cfg(exhaustive)",
   ## Warning ##
   "-Dclippy::pedantic",
   "-Dclippy::restriction",

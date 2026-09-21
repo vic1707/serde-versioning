@@ -57,6 +57,7 @@ impl TryFrom<syn::DeriveInput> for DeserializeImpl {
 }
 
 impl From<DeserializeImpl> for proc_macro::TokenStream {
+    #[inline]
     fn from(de_impl: DeserializeImpl) -> Self {
         de_impl.0.into_token_stream().into()
     }

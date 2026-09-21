@@ -1,6 +1,6 @@
 [package]
 name = "serde-versioning"
-version = "1.0.228-fix.1" # same as serde version used here
+version = "1.0.229" # same as serde version used here
 edition = "2021"
 authors = ["Victor LEFEBVRE <contact@vic1707.xyz>"]
 description = "Add versioning support to `serde`'s `Deserialize` derive macro."
@@ -12,17 +12,17 @@ repository = "https://github.com/vic1707/serde-versioning"
 include = ["src/**/*", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE"]
 categories = ["encoding", "no-std", "no-std::no-alloc"]
 keywords = ["serde", "versioning", "deserialization", "serialization", "no_std"]
-rust-version = "1.65.0"
+rust-version = "1.71.0"
 
 [lib]
 proc-macro = true
 
 [dependencies]
-proc-macro2 = "1.0.103"
-quote = "1.0.42"
-syn = { version = "2.0.110", features = ["full"] }
+proc-macro2 = "1.0.107"
+quote = "1.0.47"
+syn = { version = "3.0.6", features = ["full"] }
 
 [dev-dependencies]
-serde = "1.0.228"
-# serde_derive = "1.0.228" # used by `generate_diff.sh` script
-serde_json = "1.0.145"
+serde = "1.0.229"
+serde_derive = "1.0.229"
+serde_json = "1.0.151"

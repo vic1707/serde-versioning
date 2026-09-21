@@ -29,7 +29,6 @@ sed_() {
     $(which sed) "$@"
 }
 
-sed_ -i 's/^#[[:space:]]serde_derive/serde_derive/g' Cargo.toml
 sed_ -i 's/serde_versioning::Deserialize/serde_derive::Deserialize/g' examples/usage.rs
 sed_ -i 's/#\[versioning/\/\/#\[versioning/g' examples/usage.rs
 cargo expand --example usage > usage.expanded.initial.rs
@@ -37,7 +36,6 @@ sed_ -i 's/serde_derive::Deserialize/serde_versioning::Deserialize/g' examples/u
 sed_ -i 's/\/\/#\[versioning/#\[versioning/g' examples/usage.rs
 cargo expand --example usage > usage.expanded.modified.rs
 diff -u usage.expanded.initial.rs usage.expanded.modified.rs > usage.diff
-sed_ -i 's/^serde_derive[[:space:]]/# serde_derive /g' Cargo.toml
 
 # clean-up
 rm usage.expanded.initial.rs usage.expanded.modified.rs
