@@ -31,11 +31,11 @@ sed_() {
 
 sed_ -i 's/serde_versioning::Deserialize/serde_derive::Deserialize/g' examples/usage.rs
 sed_ -i 's/#\[versioning/\/\/#\[versioning/g' examples/usage.rs
-cargo expand --example usage > usage.expanded.initial.rs
+cargo expand --ugly --example usage > usage.expanded.initial.rs
 sed_ -i 's/serde_derive::Deserialize/serde_versioning::Deserialize/g' examples/usage.rs
 sed_ -i 's/\/\/#\[versioning/#\[versioning/g' examples/usage.rs
-cargo expand --example usage > usage.expanded.modified.rs
-diff -u usage.expanded.initial.rs usage.expanded.modified.rs > usage.diff
+cargo expand --ugly --example usage > usage.expanded.modified.rs
+diff -uw usage.expanded.initial.rs usage.expanded.modified.rs > usage.diff
 
 # clean-up
 rm usage.expanded.initial.rs usage.expanded.modified.rs
